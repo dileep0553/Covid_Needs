@@ -13,6 +13,22 @@ services:
             - MONGO_INITDB_ROOT_PASSWORD=mongo
         image: mongo
 
+  mongo-express:
+        image: mongo-express
+        environment:
+            - ME_CONFIG_MONGODB_SERVER=mongo
+            - ME_CONFIG_MONGODB_PORT=27017
+            - ME_CONFIG_MONGODB_ENABLE_ADMIN=false
+            - ME_CONFIG_MONGODB_AUTH_DATABASE=admin
+            - ME_CONFIG_MONGODB_AUTH_USERNAME=mongo
+            - ME_CONFIG_MONGODB_AUTH_PASSWORD=mongo
+            - ME_CONFIG_BASICAUTH_USERNAME=mongo
+            - ME_CONFIG_BASICAUTH_PASSWORD=mongo
+        depends_on:
+            - mongo
+        ports:
+          - "8182:8081"
+
   
   backend-healthcare:
     container_name: backend-healthcare
