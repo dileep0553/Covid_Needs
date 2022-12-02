@@ -24,7 +24,7 @@ class TestCentre extends Component {
 
   componentDidMount() {
 
-    fetch("http://localhost:4000/states")
+    fetch("http://20.115.41.101:4000/states")
       .then(res => res.json())
       .then(
         (result) => {

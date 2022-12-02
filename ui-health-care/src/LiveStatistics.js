@@ -18,7 +18,7 @@ class LiveStatistics extends Component {
   }
 
   componentDidMount() {
-    fetch("http://localhost:4000/get_vaccinated")
+    fetch("http://20.115.41.101:4000/get_vaccinated")
       .then(res => res.json())
       .then(
         (result) => {
@@ -37,7 +37,7 @@ class LiveStatistics extends Component {
       )
 
 
-    fetch("http://localhost:4000/get_positive_case")
+    fetch("http://20.115.41.101:4000/get_positive_case")
       .then(res => res.json())
       .then(
         (result) => {
@@ -55,7 +55,7 @@ class LiveStatistics extends Component {
         }
       )
 
-      fetch("http://localhost:4000/get_today_positive_case")
+      fetch("http://20.115.41.101:4000/get_today_positive_case")
       .then(res => res.json())
       .then(
         (result) => {
@@ -140,7 +140,7 @@ class LiveStatistics extends Component {
 
     return (
       <div>
-        <Header></Header>
+        {/* <Header></Header> */}
         {this.state.today_cases && 'datasets' in this.state.today_cases && (
           <Bar options={todayCasesOptions} data={this.state.today_cases} />
         )}

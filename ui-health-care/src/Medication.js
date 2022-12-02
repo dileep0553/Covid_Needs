@@ -18,7 +18,7 @@ class Medication extends Component {
   }
 
   componentDidMount() {
-    fetch("http://localhost:4000/get_icu_beds_graph")
+    fetch("http://20.115.41.101:4000/get_icu_beds_graph")
       .then(res => res.json())
       .then(
         (result) => {
@@ -36,7 +36,7 @@ class Medication extends Component {
         }
       )
 
-    fetch("http://localhost:4000/get_beds_graph")
+    fetch("http://20.115.41.101:4000/get_beds_graph")
       .then(res => res.json())
       .then(
         (result) => {

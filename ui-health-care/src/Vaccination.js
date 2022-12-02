@@ -59,9 +59,11 @@ class Vaccination extends Component {
 
     render() {
         return (
-            <Container>
+            <div>
                 <Header></Header>
+                <Container>
                 <Row>
+                    <p> </p>
                     <h1 style={{textAlign:"center"}}>Select Vaccine to Search</h1>
                     </Row>
                     <Table striped bordered hover size="sm">
@@ -93,8 +95,8 @@ class Vaccination extends Component {
                 
                 
                <Link to={"/vaccine_search/"+this.state.selectedVaccine.join()}> <Button variant="primary" style={{marginLeft:"40%"}}>Search for Selected Vaccine</Button></Link>
-
-            </Container>)
+               </Container>
+            </div>)
     }
 }
 

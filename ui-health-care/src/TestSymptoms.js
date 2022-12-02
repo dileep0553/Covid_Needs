@@ -59,7 +59,7 @@ class TestSymptoms extends Component {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ 'Fever': this.state.fever, 'Tiredness': this.state.tiredness, 'Dry-Cough': this.state.dry_Cough, 'Difficulty-in-Breathing': this.state.difficulty_in_breathing, 'Sore-Throat': this.state.sore_throat, 'Pains': this.state.pains, 'Nasal-Congestion': this.state.nasal_congestion, 'Runny-Nose': this.state.runny_nose, 'Diarrhea': this.state.diarrhea })
     };
-    fetch("http://localhost:4000/get_symptom_prediction", requestOptions)
+    fetch("http://20.115.41.101:4000/get_symptom_prediction", requestOptions)
       .then(res => res.json())
       .then(
         (result) => {

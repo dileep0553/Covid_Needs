@@ -18,7 +18,7 @@ class VaccinationSearch extends Component {
   searchCity() {
     console.log(this.state.cityName)
 
-    fetch("https://maps.googleapis.com/maps/api/geocode/json?address=" + this.state.cityName + "&key=<YOUR_KEY>")
+    fetch("https://maps.googleapis.com/maps/api/geocode/json?address=" + this.state.cityName + "&key=AIzaSyBD0WVGaI0T0JpmCT6eWu--bx0Q-Xsi06k")
       .then(res => res.json())
       .then(
         (result) => {
@@ -80,11 +80,11 @@ class VaccinationSearch extends Component {
 
   render() {
     return (
-      <div className='container'>
+      <div >
 
         <Header></Header>
         <h1 style={{textAlign:"center"}}>Search Vaccination Centers</h1>
-        <Form>
+        <Form className='container'>
           <Form.Group className="mb-3" controlId="formBasicCityName">
 
             <div className='row'  style={{    background: "grey", padding: "15px"}}>
@@ -103,6 +103,7 @@ class VaccinationSearch extends Component {
           </Form.Group>
 
         </Form>
+        <Container>
         <div className='row'>
 
           <div className='col'>
@@ -139,6 +140,7 @@ class VaccinationSearch extends Component {
 
           </div>
         </div>
+        </Container>
       </div>
 
     );
