@@ -14,9 +14,18 @@ class VaccinationSearch extends Component {
     super(props);
     this.state = { cityName: "", isLoaded: false, error: "", providers: [], guid: window.location.pathname.split("/")[2], markers: [], center: {} };
   }
+  componentWillMount() {
+    navigator.geolocation.getCurrentPosition((position) => {
+      this.setState({center:{lat:position.coords.latitude,lng:position.coords.longitude}})
+      this.fetchVaccinationCity(position.coords.latitude, position.coords.longitude);
+      fetch("https://maps.googleapis.com/maps/api/geocode/json?latlng="+position.coords.latitude+","+position.coords.longitude+"&key=AIzaSyBD0WVGaI0T0JpmCT6eWu--bx0Q-Xsi06k")
+      .then(res => res.json()).then((geocode) => {
+        this.setState({cityName: geocode.results[0].formatted_address});
+      })
+    });
+  }
 
   searchCity() {
-    console.log(this.state.cityName)
 
     fetch("https://maps.googleapis.com/maps/api/geocode/json?address=" + this.state.cityName + "&key=AIzaSyBD0WVGaI0T0JpmCT6eWu--bx0Q-Xsi06k")
       .then(res => res.json())
@@ -36,7 +45,6 @@ class VaccinationSearch extends Component {
           });
         }
       )
-
   }
 
   fetchVaccinationCity(lat, long) {
@@ -92,7 +100,7 @@ class VaccinationSearch extends Component {
                 <Form.Label>City Name</Form.Label>
               </div>
               <div className='col'>
-                <Form.Control type="cityName" placeholder="Enter cityName" onChange={this.captureCityName.bind(this)} />
+                <Form.Control type="cityName" placeholder="Enter cityName" value={this.state.cityName} onChange={this.captureCityName.bind(this)} />
               </div>
               <div className='col'>
                 <Button variant="primary" onClick={this.searchCity.bind(this)} type="button">
@@ -107,22 +115,22 @@ class VaccinationSearch extends Component {
         <div className='row'>
 
           <div className='col'>
-            <GeoMap markers={this.state.markers} center={this.state.center}></GeoMap>
+            <GeoMap markers={this.state.markers} center={this.state.center} zoom={10}></GeoMap>
           </div>
           <div className='col'>
 
             <div className='container'>
               <div className='row' style={{overflowY: "scroll",height: "500px",  paddingLeft:"70px"}}>
                 {this.state.providers.map((provider) => {
-                  return (<Card style={{ width: '18rem' }}>
+                  return (<Card style={{ width: '98%',marginBottom:"8px",boxShadow:"1px 1px 3px" }}>
                     <Card.Body>
                       <Card.Title><a href={provider['website']}>{provider['name']}</a></Card.Title>
                       <Card.Text>
                         Address: {provider['address1']} {" "}{provider['address2']}{" "} {provider['city']}
                       </Card.Text>
-                      <Card.Text>
+                      {/* <Card.Text>
                         In Stock: {provider['in_stock']}
-                      </Card.Text>
+                      </Card.Text> */}
                       <Link to={'/vaccine_centre/' + provider['guid']}>
                         <Button variant="primary">Get More Details</Button></Link>
                     </Card.Body>

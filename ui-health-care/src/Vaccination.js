@@ -83,7 +83,11 @@ class Vaccination extends Component {
                         <td>{vaccineDose['key']}</td>
                         <td>{vaccineDose['is_booster']?"Yes":"No"}</td>
                         <td>{vaccineDose['is_primary']?"Yes":"No"}</td>
-                        <td>{vaccineDose['minimumAge']['months']}{" months "}{vaccineDose['minimumAge']['years']}{" years "}{"-"}{vaccineDose['maximumAge']['months']}{" months "}{vaccineDose['maximumAge']['years']}{" years "}</td> 
+                        <td>{vaccineDose['minimumAge']['months']>0?vaccineDose['minimumAge']['months']+" months ":""}
+                        {vaccineDose['minimumAge']['years']>0?vaccineDose['minimumAge']['years']+" years ":""}
+                        {vaccineDose['maximumAge']['months']>0 || vaccineDose['maximumAge']['years']>0?"- ":"+"}
+                        {vaccineDose['maximumAge']['months']>0?vaccineDose['maximumAge']['months']+" months ":""}
+                        {vaccineDose['maximumAge']['years']>0?vaccineDose['maximumAge']['years']+" years ":""}</td> 
                         <td><input type="checkbox" name={vaccineDose['guid']} onChange={this.addOrRemoveChoice.bind(this)} ></input></td>
                     </tr>
 

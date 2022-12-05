@@ -37,6 +37,7 @@ function GeoMap(props) {
       onClick={() => setActiveMarker(null)}
       mapContainerStyle={{ width: "40vw", height: "60vh" }}
       center={props.center}
+      zoom={props.zoom}
       >
        {markers.map(({ id, name, position }) => (
         <Marker

@@ -18,6 +18,13 @@ class App extends React.Component {
     this.state = { covid: [] };
   }
   componentDidMount() {
+
+    
+    navigator.geolocation.getCurrentPosition(function(position) {
+      console.log(position);
+      console.log("Latitude is :", position.coords.latitude);
+      console.log("Longitude is :", position.coords.longitude);
+    });
     fetch("http://20.115.41.101:4000/get_today_positive_stat")
       .then(res => res.json())
       .then(

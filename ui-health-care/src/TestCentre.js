@@ -21,26 +21,44 @@ class TestCentre extends Component {
       }
     };
   }
+  componentWillMount() {
+    fetch("http://20.115.41.101:4000/states")
+    .then(res => res.json())
+    .then(
+      (result) => {
+        console.log(result);
+        this.setState({
+          isLoaded: true,
+          states: result
+        });
+      },
+
+      (error) => {
+        this.setState({
+          isLoaded: true,
+          error
+        });
+      }
+    )
+    navigator.geolocation.getCurrentPosition((position) => {
+      // this.fetchVaccinationCity(position.coords.latitude, position.coords.longitude);
+      this.setState({center:{lat:position.coords.latitude,lng:position.coords.longitude}})
+      fetch("https://maps.googleapis.com/maps/api/geocode/json?latlng="+position.coords.latitude+","+position.coords.longitude+"&key=AIzaSyBD0WVGaI0T0JpmCT6eWu--bx0Q-Xsi06k")
+      .then(res => res.json()).then((geocode) => {
+       
+        geocode.results[0].address_components.map(({short_name})=>{
+          if(Object.keys(this.state.states).includes(short_name)){
+            this.setState({ cityName: short_name }).then(()=>{});
+            this.fetchTestCentre();
+          }
+        })
+      })
+    });
+  }
 
   componentDidMount() {
 
-    fetch("http://20.115.41.101:4000/states")
-      .then(res => res.json())
-      .then(
-        (result) => {
-          this.setState({
-            isLoaded: true,
-            states: result
-          });
-        },
-
-        (error) => {
-          this.setState({
-            isLoaded: true,
-            error
-          });
-        }
-      )
+   
 
   }
 
@@ -97,7 +115,7 @@ class TestCentre extends Component {
               <Form.Group className="mb-3" controlId="formBasicCityName" style={{boxShadow: '4px 4px 10px '}}>
                 <div className='row'  style={{    background: "grey", padding: "15px"}}>
                   <div className='col'> <Form.Label>City Name</Form.Label></div>
-                  <div className='col'><Form.Select aria-label="Default select example" onChange={this.captureCityName.bind(this)}>
+                  <div className='col'><Form.Select aria-label="Default select example" value={this.state.cityName} onChange={this.captureCityName.bind(this)}>
                     {Object.keys(this.state.states).map((code) => {
                       return (<option value={code}> {this.state.states[code]}</option>)
                     }
