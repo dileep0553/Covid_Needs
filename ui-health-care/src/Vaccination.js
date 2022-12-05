@@ -17,7 +17,7 @@ class Vaccination extends Component {
     }
 
     componentDidMount() {
-        fetch("https://api.us.castlighthealth.com/vaccine-finder/v1/medications?category=covid")
+        fetch("http://api.us.castlighthealth.com/vaccine-finder/v1/medications?category=covid")
             .then(res => res.json())
             .then(
                 (result) => {
